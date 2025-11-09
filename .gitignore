@@ -16,9 +16,12 @@ package-lock.json
 .DS_Store
 .env
 .env.local
+.env.development
 .env.development.local
-.env.test.local
+.env.production
 .env.production.local
+.env.test
+.env.test.local
 
 # Logs
 npm-debug.log*
@@ -80,4 +83,11 @@ Thumbs.db
 
 # Husky
 .husky/_
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+*.cache
 
