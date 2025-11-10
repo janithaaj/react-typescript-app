@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +13,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root.light {
+  --color-background: #ffffff;
+  --color-foreground: #213547;
+}
+
+:root.dark {
+  --color-background: #242424;
+  --color-foreground: rgba(255, 255, 255, 0.87);
 }
 
 a {
