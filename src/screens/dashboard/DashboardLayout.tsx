@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 import Sidebar from '../../components/layout/Sidebar';
 import ThemeToggle from '../../components/common/theme-toggle';
+import { useAuth } from '../../hooks/useAuth';
+import { Button } from '../../components';
 
 interface SidebarItem {
   path: string;
@@ -17,9 +20,35 @@ interface DashboardLayoutProps {
  * Dashboard layout component with sidebar and content area.
  */
 const DashboardLayout = ({ children, sidebarItems }: DashboardLayoutProps) => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/login', { replace: true });
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        {user && (
+          <div className="text-sm text-slate-600 dark:text-slate-300 hidden sm:block">
+            {user.email}
+          </div>
+        )}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={handleSignOut}
+          className="text-xs"
+        >
+          Sign Out
+        </Button>
         <ThemeToggle />
       </div>
 

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import type { RouteObject } from 'react-router';
 import App from '../App';
 import { Login, Dashboard } from '../screens';
+import ProtectedRoute from '../components/common/ProtectedRoute';
 
 /**
  * Application routes configuration.
@@ -17,7 +18,11 @@ const routes: RouteObject[] = [
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
 ];
 
