@@ -1,4 +1,4 @@
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../../hooks/useTheme';
 
 /**
  * Theme toggle button component.
@@ -8,6 +8,12 @@ const ThemeToggle = () => {
 
   const handleToggle = () => {
     toggleTheme();
+    // Debug: Check if dark class is on HTML element
+    setTimeout(() => {
+      const htmlElement = document.documentElement;
+      console.log('After toggle - HTML classes:', htmlElement.className);
+      console.log('Has dark class:', htmlElement.classList.contains('dark'));
+    }, 100);
   };
 
   /**

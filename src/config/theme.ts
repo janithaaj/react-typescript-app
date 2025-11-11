@@ -35,7 +35,18 @@ export const applyTheme = (theme: 'light' | 'dark'): void => {
   }
 
   const root = window.document.documentElement;
+
+  // Remove both classes first
   root.classList.remove('light', 'dark');
-  root.classList.add(theme);
+
+  // Add the appropriate class - Tailwind v4 uses 'dark' class for dark mode
+  if (theme === 'dark') {
+    root.classList.add('dark');
+    document.body.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+    document.body.classList.remove('dark');
+  }
+
   root.setAttribute('data-theme', theme);
 };

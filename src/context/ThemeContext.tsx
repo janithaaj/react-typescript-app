@@ -80,12 +80,13 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
     } else {
-      setResolvedTheme(theme);
-      applyTheme(theme);
+      const resolved = theme as 'light' | 'dark';
+      setResolvedTheme(resolved);
+      applyTheme(resolved);
     }
   }, [theme]);
 
-  // Apply theme on mount
+  // Apply theme whenever resolvedTheme changes
   useEffect(() => {
     applyTheme(resolvedTheme);
   }, [resolvedTheme]);
