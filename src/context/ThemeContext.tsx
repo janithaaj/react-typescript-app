@@ -1,8 +1,12 @@
-import { useEffect, useState, useCallback } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useEffect, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { ThemeContextType, ThemeMode } from '../types/theme';
 import { themeConfig, getSystemTheme, applyTheme } from '../config/theme';
-import { ThemeContext } from './ThemeContextValue';
+
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined
+);
 
 interface ThemeProviderProps {
   children: ReactNode;

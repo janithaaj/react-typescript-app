@@ -1,2 +1,1 @@
-export { ThemeProvider } from './ThemeContext';
-export { ThemeContext } from './ThemeContextValue';
+export { ThemeProvider, ThemeContext } from './ThemeContext';
