@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router';
-import { ThemeToggle, Button } from './components';
+import { ThemeToggle, Button } from '../../components';
 
 /**
  * Home page component - Single page web page.
  */
-const App = () => {
+const Home = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -19,10 +19,10 @@ const App = () => {
 
       <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">
         <div className="max-w-4xl w-full text-center space-y-8">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-slate-800 dark:text-slate-100">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100">
             Diagram Editor
           </h1>
-          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Create, edit, and share beautiful diagrams with our powerful diagram
             editor
           </p>
@@ -45,28 +45,28 @@ const App = () => {
             </Button>
           </div>
 
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mt-12 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <div className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-lg shadow-md border border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-lg">
-              <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-slate-100">
+              <h3 className="text-lg font-semibold mb-3 text-slate-800 dark:text-slate-100">
                 Easy to Use
               </h3>
-              <p className="text-slate-600 dark:text-slate-300">
+              <p className="text-base text-slate-600 dark:text-slate-300">
                 Intuitive interface for creating professional diagrams quickly
               </p>
             </div>
             <div className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-lg shadow-md border border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-lg">
-              <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-slate-100">
+              <h3 className="text-lg font-semibold mb-3 text-slate-800 dark:text-slate-100">
                 Powerful Features
               </h3>
-              <p className="text-slate-600 dark:text-slate-300">
+              <p className="text-base text-slate-600 dark:text-slate-300">
                 Rich set of tools and shapes for all your diagramming needs
               </p>
             </div>
             <div className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-lg shadow-md border border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-lg">
-              <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-slate-100">
+              <h3 className="text-lg font-semibold mb-3 text-slate-800 dark:text-slate-100">
                 Collaborate
               </h3>
-              <p className="text-slate-600 dark:text-slate-300">
+              <p className="text-base text-slate-600 dark:text-slate-300">
                 Share and collaborate on diagrams with your team
               </p>
             </div>
@@ -77,4 +77,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

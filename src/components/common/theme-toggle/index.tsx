@@ -1,25 +1,12 @@
 import { useTheme } from '../../../hooks/useTheme';
 
-/**
- * Theme toggle button component.
- */
 const ThemeToggle = () => {
   const { theme, resolvedTheme, toggleTheme } = useTheme();
 
   const handleToggle = () => {
     toggleTheme();
-    // Debug: Check if dark class is on HTML element
-    setTimeout(() => {
-      const htmlElement = document.documentElement;
-      console.log('After toggle - HTML classes:', htmlElement.className);
-      console.log('Has dark class:', htmlElement.classList.contains('dark'));
-    }, 100);
   };
 
-  /**
-   * Handles keyboard events.
-   * @param {React.KeyboardEvent<HTMLButtonElement>} event - Keyboard event.
-   */
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();

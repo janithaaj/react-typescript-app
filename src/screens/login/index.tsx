@@ -123,7 +123,7 @@ const Login = () => {
       <div className="w-full lg:w-1/3 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 flex items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <h2 className="text-center text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100">
+            <h2 className="text-center text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100">
               {isSignUp ? 'Create your account' : 'Sign in to your account'}
             </h2>
             <p className="mt-4 text-center text-base text-slate-600 dark:text-slate-300">
@@ -146,7 +146,7 @@ const Login = () => {
                 className="rounded-md bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4"
                 role="alert"
               >
-                <p className="text-sm text-red-800 dark:text-red-200">
+                <p className="text-base text-red-800 dark:text-red-200">
                   {error}
                 </p>
               </div>
@@ -157,7 +157,7 @@ const Login = () => {
                 className="rounded-md bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4"
                 role="alert"
               >
-                <p className="text-sm text-green-800 dark:text-green-200">
+                <p className="text-base text-green-800 dark:text-green-200">
                   {successMessage}
                 </p>
               </div>

@@ -5,16 +5,10 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-/**
- * Protected route component that requires authentication.
- * Redirects to login if user is not authenticated.
- * @param {ProtectedRouteProps} props - Component props.
- */
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
-  // Show loading state while checking authentication
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
@@ -26,7 +20,6 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     );
   }
 
-  // Redirect to login if not authenticated
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

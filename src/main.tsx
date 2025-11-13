@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import { ThemeProvider, AuthProvider } from './context';
+import { ThemeProvider, AuthProvider, DiagramsProvider } from './context';
 import { Navigation } from './navigation';
 import { getSystemTheme, applyTheme } from './config/theme';
 
@@ -23,7 +23,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
-        <Navigation />
+        <DiagramsProvider>
+          <Navigation />
+        </DiagramsProvider>
       </AuthProvider>
     </ThemeProvider>
   </StrictMode>
