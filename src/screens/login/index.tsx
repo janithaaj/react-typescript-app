@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { ThemeToggle, Input, Button } from '../../components';
+import { ThemeToggle, Input, Button, Alert } from '../../components';
 import { useAuth } from '../../hooks/useAuth';
 import { getAuthErrorMessage } from '../../services/auth';
 import type { AuthError } from 'firebase/auth';
@@ -147,26 +147,10 @@ const Login = () => {
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            {error && (
-              <div
-                className="rounded-md bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4"
-                role="alert"
-              >
-                <p className="text-base text-red-800 dark:text-red-200">
-                  {error}
-                </p>
-              </div>
-            )}
+            {error && <Alert type="error" message={error} />}
 
             {successMessage && (
-              <div
-                className="rounded-md bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4"
-                role="alert"
-              >
-                <p className="text-base text-green-800 dark:text-green-200">
-                  {successMessage}
-                </p>
-              </div>
+              <Alert type="success" message={successMessage} />
             )}
 
             <div className="rounded-lg shadow-md bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm p-6 md:p-8 border border-slate-200 dark:border-slate-700 space-y-4">

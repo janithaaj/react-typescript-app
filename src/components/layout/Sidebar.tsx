@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import type { ReactNode } from 'react';
 import Button from '../common/button';
+import ConfirmationModal from '../common/confirmation-modal';
 import { deleteDiagram } from '../../services/diagrams';
 import { useDiagrams } from '../../context/DiagramsContext';
 import { useIsEditor } from '../../hooks/useRole';
@@ -42,6 +43,10 @@ const Sidebar = ({
   const itemsPerPage = 5;
   const { refreshDiagrams } = useDiagrams();
   const isEditor = useIsEditor();
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    isOpen: boolean;
+    diagramId: string | null;
+  }>({ isOpen: false, diagramId: null });
 
   const handleToggle = () => {
     setIsCollapsed((prev) => !prev);
@@ -72,29 +77,31 @@ const Sidebar = ({
     }
   };
 
-  const handleDeleteDiagram = async (
-    diagramId: string,
-    e: React.MouseEvent
-  ) => {
+  const handleDeleteClick = (diagramId: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (
-      !isEditor ||
-      !window.confirm('Are you sure you want to delete this diagram?')
-    ) {
-      return;
-    }
+    if (!isEditor) return;
+    setDeleteConfirm({ isOpen: true, diagramId });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteConfirm.diagramId) return;
 
     try {
-      await deleteDiagram(diagramId);
+      await deleteDiagram(deleteConfirm.diagramId);
       await refreshDiagrams();
       // If we're currently viewing the deleted diagram, navigate to dashboard
-      if (location.pathname === `/diagram/${diagramId}`) {
+      if (location.pathname === `/diagram/${deleteConfirm.diagramId}`) {
         navigate('/dashboard');
       }
+      setDeleteConfirm({ isOpen: false, diagramId: null });
     } catch (error) {
       console.error('Error deleting diagram:', error);
       alert('Failed to delete diagram. Please try again.');
     }
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteConfirm({ isOpen: false, diagramId: null });
   };
 
   return (
@@ -262,9 +269,7 @@ const Sidebar = ({
                           {isEditor && (
                             <button
                               type="button"
-                              onClick={(e) =>
-                                handleDeleteDiagram(diagram.id, e)
-                              }
+                              onClick={(e) => handleDeleteClick(diagram.id, e)}
                               className="ml-2 p-1.5 rounded-md hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors hover:outline-none focus:outline-none active:outline-none"
                               aria-label={`Delete ${diagram.title}`}
                               title="Delete diagram"
@@ -376,6 +381,17 @@ const Sidebar = ({
           )}
         </div>
       </aside>
+
+      <ConfirmationModal
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Diagram"
+        message="Are you sure you want to delete this diagram? This action cannot be undone."
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmVariant="danger"
+      />
     </>
   );
 };
