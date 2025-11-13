@@ -1,6 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import type { RouteObject } from 'react-router';
-import { Home, Login, Dashboard, DiagramEditor } from '../screens';
+import {
+  Home,
+  Login,
+  Dashboard,
+  DiagramEditor,
+  NotFound,
+  ErrorPage,
+} from '../screens';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 
 /**
@@ -10,10 +17,12 @@ const routes: RouteObject[] = [
   {
     path: '/',
     element: <Home />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/login',
     element: <Login />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/dashboard',
@@ -22,6 +31,7 @@ const routes: RouteObject[] = [
         <Dashboard />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
   },
   {
     path: '/diagram/:id',
@@ -30,6 +40,11 @@ const routes: RouteObject[] = [
         <DiagramEditor />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ];
 
