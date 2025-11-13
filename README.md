@@ -54,6 +54,8 @@ You'll need to set up Firebase for authentication and Firestore. Here's what to 
 
 ### 4. Environment Variables
 
+#### Development
+
 Create a `.env.development` file in the root directory:
 
 ```env
@@ -67,6 +69,36 @@ VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
 
 Replace the values with your actual Firebase configuration.
+
+#### Production
+
+**⚠️ Security Best Practices:**
+
+1. **Local Development**: Create `.env.production` locally (already in `.gitignore`) for testing production builds
+2. **CI/CD (Recommended)**: Use GitHub Secrets - DO NOT commit production env files to the repository
+
+**For GitHub Actions CI/CD:**
+
+1. Go to your GitHub repository → Settings → Secrets and variables → Actions
+2. Add the following secrets:
+   - `VITE_FIREBASE_API_KEY`
+   - `VITE_FIREBASE_AUTH_DOMAIN`
+   - `VITE_FIREBASE_PROJECT_ID`
+   - `VITE_FIREBASE_STORAGE_BUCKET`
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
+   - `VITE_FIREBASE_APP_ID`
+   - `VITE_FIREBASE_MEASUREMENT_ID`
+   - `VITE_API_BASE_URL` (optional)
+
+The CI/CD workflow will automatically inject these during the build process.
+
+**Important Security Notes:**
+
+- ✅ `.env.production` is already in `.gitignore` - never commit it
+- ✅ Firebase API keys are public by design (they're in client-side code)
+- ✅ Security is enforced through Firebase Security Rules, not API keys
+- ✅ Use GitHub Secrets for CI/CD to keep secrets out of the repository
+- ✅ Restrict Firebase API keys in Firebase Console (Settings → General → Your apps)
 
 ### 5. Firestore Rules
 
@@ -183,3 +215,8 @@ The project includes GitHub Actions workflow for automated deployment. It's conf
 **Build errors**: Try deleting `node_modules` and `package-lock.json`, then run `npm install` again.
 
 **Firestore permission errors**: Make sure you've deployed the Firestore rules and indexes.
+
+**Production build missing env variables**:
+
+- For local builds: Create `.env.production` file (see `env.production.example`)
+- For CI/CD: Ensure all required secrets are added to GitHub Secrets
