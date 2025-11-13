@@ -24,7 +24,7 @@ const Dashboard = () => {
   const { user, userRole } = useAuth();
   const isEditor = useIsEditor();
   const navigate = useNavigate();
-  const { refreshDiagrams } = useDiagrams();
+  const { diagrams: contextDiagrams, refreshDiagrams } = useDiagrams();
   const [diagrams, setDiagrams] = useState<Diagram[]>([]);
   const [isLoadingDiagrams, setIsLoadingDiagrams] = useState(true);
   const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -60,7 +60,6 @@ const Dashboard = () => {
 
       try {
         setIsLoadingDiagrams(true);
-        // Editors see their own diagrams, viewers see all diagrams
         const loadedDiagrams = isEditor
           ? await getUserDiagrams(user.uid)
           : await getAllDiagrams();
@@ -74,6 +73,10 @@ const Dashboard = () => {
 
     loadDiagrams();
   }, [user, isEditor]);
+
+  useEffect(() => {
+    setDiagrams(contextDiagrams);
+  }, [contextDiagrams]);
 
   const handleCreateDiagram = () => {
     navigate('/diagram/new');

@@ -88,18 +88,20 @@ export const updateDiagram = async (
     const updateData: Record<string, unknown> = { ...updates };
 
     if (updateData.createdAt) {
+      const createdAt = updateData.createdAt;
       updateData.createdAt = Timestamp.fromDate(
-        updateData.createdAt instanceof Date
-          ? updateData.createdAt
-          : new Date(updateData.createdAt)
+        createdAt instanceof Date
+          ? createdAt
+          : new Date(createdAt as string | number | Date)
       );
     }
 
     if (updateData.updatedAt) {
+      const updatedAt = updateData.updatedAt;
       updateData.updatedAt = Timestamp.fromDate(
-        updateData.updatedAt instanceof Date
-          ? updateData.updatedAt
-          : new Date(updateData.updatedAt)
+        updatedAt instanceof Date
+          ? updatedAt
+          : new Date(updatedAt as string | number | Date)
       );
     } else {
       updateData.updatedAt = Timestamp.now();
