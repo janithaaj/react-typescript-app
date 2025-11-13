@@ -7,6 +7,14 @@ export default {
         background: 'var(--color-background)',
         foreground: 'var(--color-foreground)',
       },
+      fontFamily: {
+        sans: [
+          'var(--font-family-primary)',
+          'system-ui',
+          '-apple-system',
+          'sans-serif',
+        ],
+      },
     },
   },
   plugins: [],

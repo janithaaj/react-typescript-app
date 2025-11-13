@@ -12,10 +12,6 @@ export const themeConfig: ThemeConfig = {
   defaultMode: 'system',
 };
 
-/**
- * Gets the system theme preference.
- * @returns {'light' | 'dark'} The system theme.
- */
 export const getSystemTheme = (): 'light' | 'dark' => {
   if (typeof window === 'undefined') {
     return 'light';
@@ -25,10 +21,6 @@ export const getSystemTheme = (): 'light' | 'dark' => {
     : 'light';
 };
 
-/**
- * Applies the theme to the document.
- * @param {'light' | 'dark'} theme - The theme to apply.
- */
 export const applyTheme = (theme: 'light' | 'dark'): void => {
   if (typeof window === 'undefined') {
     return;
@@ -36,10 +28,8 @@ export const applyTheme = (theme: 'light' | 'dark'): void => {
 
   const root = window.document.documentElement;
 
-  // Remove both classes first
   root.classList.remove('light', 'dark');
 
-  // Add the appropriate class - Tailwind v4 uses 'dark' class for dark mode
   if (theme === 'dark') {
     root.classList.add('dark');
     document.body.classList.add('dark');
