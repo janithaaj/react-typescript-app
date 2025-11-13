@@ -1,11 +1,9 @@
-name: Deploy to Firebase Hosting
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
-      - qa
-      - dev
+      - '**'
   pull_request:
     branches:
       - main
@@ -48,21 +46,43 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to Firebase Hosting (Production)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  deploy:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.7.0'
+
+      - name: Generate lock file if missing
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "package-lock.json not found. Generating lock file..."
+            npm install --package-lock-only
+          fi
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
           projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'
-
-      - name: Deploy to Firebase Hosting (Preview - Main PR)
-        if: github.event_name == 'pull_request' && github.base_ref == 'main'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
-          projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'
-          expires: 30d
 
