@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { DashboardLayout } from '../../components/layout';
 import { useAuth } from '../../hooks/useAuth';
 import { useIsEditor } from '../../hooks/useRole';
-import { Button } from '../../components';
+import { Button, LoadingSpinner } from '../../components';
 import {
   getUserDiagrams,
   getAllDiagrams,
@@ -156,10 +156,11 @@ const Dashboard = () => {
           </div>
           {isLoadingDiagrams ? (
             <div className="flex flex-col items-center justify-center py-16 px-4">
-              <div className="inline-block animate-spin rounded-full h-10 w-10 border-3 border-blue-600 border-t-transparent dark:border-blue-400"></div>
-              <p className="mt-4 text-base font-medium text-slate-600 dark:text-slate-400">
-                Loading diagrams...
-              </p>
+              <LoadingSpinner
+                size="lg"
+                message="Loading diagrams..."
+                spinnerClassName="border-blue-600 border-t-transparent dark:border-blue-400"
+              />
             </div>
           ) : diagrams.length === 0 ? (
             <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-2 border-dashed border-slate-200 dark:border-slate-700 p-12 text-center">

@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
 import type { UserRole } from '../../types/auth';
+import LoadingSpinner from './loading-spinner';
 
 interface RoleProtectedRouteProps {
   children: React.ReactNode;
@@ -15,14 +16,7 @@ const RoleProtectedRoute = ({
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-slate-700 dark:border-slate-300"></div>
-          <p className="mt-4 text-slate-600 dark:text-slate-400">Loading...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner fullScreen />;
   }
 
   if (!user) {

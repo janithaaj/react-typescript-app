@@ -113,11 +113,17 @@ const Login = () => {
 
       {/* Background image section */}
       <div
-        className="hidden lg:flex lg:w-2/3 bg-slate-200 dark:bg-slate-800 bg-cover bg-center bg-no-repeat"
+        className="hidden lg:flex lg:w-2/3 bg-slate-200 dark:bg-slate-800 bg-cover bg-center bg-no-repeat relative"
         style={{
           backgroundImage: `url(${backgroundImage})`,
         }}
-      ></div>
+      >
+        <div className="absolute inset-0 bg-black/30 dark:bg-black/50 flex items-center justify-center">
+          <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
+            Diagram Editor
+          </h1>
+        </div>
+      </div>
 
       {/* Form section */}
       <div className="w-full lg:w-1/3 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 flex items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">

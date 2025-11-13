@@ -22,7 +22,7 @@ import {
   createDiagram,
   updateDiagram,
 } from '../../services/diagrams';
-import { Button, Input } from '../../components';
+import { Button, Input, LoadingSpinner } from '../../components';
 import { DashboardLayout } from '../../components/layout';
 import Toast from '../../components/common/toast';
 import { useDiagrams } from '../../context/DiagramsContext';
@@ -346,12 +346,7 @@ const DiagramEditor = () => {
     return (
       <DashboardLayout sidebarItems={sidebarItems}>
         <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-slate-700 dark:border-slate-300"></div>
-            <p className="mt-4 text-slate-600 dark:text-slate-400">
-              Loading diagram...
-            </p>
-          </div>
+          <LoadingSpinner message="Loading diagram..." />
         </div>
       </DashboardLayout>
     );
